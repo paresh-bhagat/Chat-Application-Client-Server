@@ -1,9 +1,10 @@
 # Chat appplication
 
-A client-server user-level chat application using sockets Programming in C.The server and client processes can run on same or different machines. Multiple client processes can connect to the same server. Messages are end-to-end using a simple algorithm for generating public key,private key pair.
+A client-server user-level chat application using Socket Programming in C.The server and client processes can run on same or different machines. Multiple client processes can connect to the same server but only one can chat with server at a time. Messages are end-to-end using a simple algorithm for generating public key,private key pair.
 
 ## Tags
 C programming, Socket programming,Multithreading in C using pthread Library
+
 ## Demo
 
 To compile server.c and client.c
