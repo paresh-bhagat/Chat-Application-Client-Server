@@ -40,6 +40,7 @@ uint8_t generate_public_key(uint8_t private_key)
 
 char* encrypt(uint8_t public_key,char* message)
 {
+    //printf("original message=%s\n",message);
     int n = strlen(message);
     char* temp = (char *)malloc(n+1);
     strcpy(temp, message);
@@ -48,6 +49,7 @@ char* encrypt(uint8_t public_key,char* message)
         char c = (temp[i] + public_key) % modulo;
         temp[i]=c;
     }
+    //printf("Encrypted message=%s\n",temp);
     return (char *)temp;
 
 }
@@ -56,12 +58,14 @@ char* encrypt(uint8_t public_key,char* message)
 
 void decrypt(uint8_t private_key,char* message)
 {
+    //printf("message to de deccrypted=%s\n",message);
     int n = strlen(message);
 
     for (int i=0;i<n;i++){
         char c = (message[i] + private_key) % modulo;
         message[i]=c;
     }
+    //printf("message after decryption=%s\n",message);
 }
 
 // main funtion
@@ -173,11 +177,11 @@ int main(int argc, char *argv[])
             decrypt(private_key,buffer); 
 
             // print on screen
-            printf("%s : %s",client_name,buffer);
+            printf("%s : %s\n",client_name,buffer);
             bzero(buffer,100);
 
             // type messsage
-            printf("\n%s : ",server_name);
+            printf("%s : ",server_name);
             fgets(buffer,100,stdin);
             char* first_newline = strchr(buffer, '\n');
             if (first_newline)
@@ -185,9 +189,9 @@ int main(int argc, char *argv[])
 
             // send message to client
             encrypted_message = encrypt(public_key_client,buffer);
-        	n=write(newsockfd,buffer,strlen(buffer));
+        	n=write(newsockfd,encrypted_message,strlen(encrypted_message));
         	if (n < 0)
-            		error("ERROR writing to socket");
+            	error("ERROR writing to socket");
 
             // check for condition for exit
             int i = strncmp("Bye",buffer,3);
