@@ -1,4 +1,4 @@
-# Chat appplication
+# Chat Application
 
 A client-server user-level chat application using Socket Programming in C.The server and client processes can run on same or different machines. Multiple client processes can connect to the same server but only one can chat with server at a time. Messages are end-to-end encrpyted using a simple algorithm for generating public key,private key pair.
 
